@@ -33,9 +33,7 @@ int Length(lista l){
 // Pre: l no es vacía.
 int Last(lista l){
     int placeholder;
-    lista l, l=l;
-    while(l!=NULL){
-        l=l;
+    while(l->sig=NULL){
         l=l->sig;
         }
         placeholder=l->dato;
@@ -71,17 +69,58 @@ float Average(lista l){
 lista Insert(int x, lista l){
     lista ant=l, aux=l, nuevo_nodo=new nodo_lista;
     nuevo_nodo->dato=x;
-    while(aux->dato<x && aux!=NULL){
+    while(aux!=NULL && aux->dato<x){
         ant=aux;
         aux=aux->sig;
     }
+    if(aux==l){
+        if(l==NULL){
+            l=nuevo_nodo;
+        } else {
+        nuevo_nodo->sig=l;
+        l=nuevo_nodo;
+        }
+    } else if (aux==NULL){
+        ant->sig=nuevo_nodo;
+        nuevo_nodo->sig=NULL;
+    } else{ 
     aux->sig=nuevo_nodo;
     nuevo_nodo->sig=aux;
+    }
 }
 
-lista Snoc(int x, lista l);
 // Inserta el elemento x al final de la lista l.
-lista Remove(int x, lista l);
+lista Snoc(int x, lista l){
+    lista aux=l;
+    while(aux->sig!=NULL){
+        aux=aux->sig;
+    }
+    lista nuevo_nodo=new nodo_lista;
+    aux->sig=nuevo_nodo;
+    nuevo_nodo->dato=x;
+    nuevo_nodo->sig=NULL;
+    return l;
+}
+
 // Elimina todas las ocurrencias de x en la lista l.
-bool Equals(lista l, lista p);
+lista Remove(int x, lista l){
+    lista ant=l, aux=l;
+    while(aux!=NULL){
+        if(aux->dato==x && aux!=ant){
+            ant->sig=aux->sig;
+            delete aux;
+            aux=ant->sig;
+        } else {
+            delete l;
+        }
+        ant=aux;
+        aux=aux->sig;
+    }
+    return l;
+}
+
 // Verifica si las listas l y p son iguales (mismos elementos en el mismo orden).
+bool Equals(lista l, lista p){
+    bool bandera=false;
+    
+}
