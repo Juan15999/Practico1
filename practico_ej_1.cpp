@@ -33,7 +33,7 @@ int Length(lista l){
 // Pre: l no es vacía.
 int Last(lista l){
     int placeholder;
-    while(l->sig=NULL){
+    while(l->sig!=NULL){
         l=l->sig;
         }
         placeholder=l->dato;
@@ -106,21 +106,39 @@ lista Snoc(int x, lista l){
 lista Remove(int x, lista l){
     lista ant=l, aux=l;
     while(aux!=NULL){
-        if(aux->dato==x && aux!=ant){
-            ant->sig=aux->sig;
-            delete aux;
-            aux=ant->sig;
+        if(aux->dato==x){
+            if(aux==l){
+                l=l->sig;
+                delete aux;
+                aux=l;
+            } else {
+                ant->sig=aux->sig;
+                delete aux;
+                aux=ant->sig;
+            }
         } else {
-            delete l;
+            ant= aux;
+            aux=aux->sig;
         }
-        ant=aux;
-        aux=aux->sig;
     }
     return l;
 }
 
 // Verifica si las listas l y p son iguales (mismos elementos en el mismo orden).
 bool Equals(lista l, lista p){
-    bool bandera=false;
-    
+    bool bandera=true;
+    while(l!=NULL && p!=NULL){
+        if(l->dato!=p->dato){
+            bandera=false;
+            return bandera;
+        } else {
+            l=l->sig;
+            p=p->sig;
+        }
+    }
+    if(l==p){
+        return bandera; 
+    } else {
+        return !bandera;
+    }
 }
